@@ -7,12 +7,15 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "serve": "php artisan serve --host=domain.test --port=8080 & npm run watch"
     },
     "devDependencies": {
+        "autoprefixer": "^10.4.4",
         "axios": "^0.25",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.4.12",
+        "tailwindcss": "^3.0.23"
     }
 }
