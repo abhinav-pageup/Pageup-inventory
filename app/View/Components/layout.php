@@ -3,7 +3,6 @@
 namespace App\View\Components;
 
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\Component;
 
 class layout extends Component

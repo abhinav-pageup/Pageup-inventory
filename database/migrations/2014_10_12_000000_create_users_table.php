@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('emp_id', 10)->nullable();
             $table->string('name', 50)->nullable();
             $table->string('email', 75)->unique()->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('phone', 10);
             $table->date('joined_at')->nullable();
             $table->boolean('is_active')->default(1);

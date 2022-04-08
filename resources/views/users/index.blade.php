@@ -2,7 +2,7 @@
     <title>Employees | Pageup Inventory</title>
 </head>
 <x-layout>
-    <div class="md:ml-72 mt-12">
+    <div class="md:ml-64 mt-12">
         <div class="mt-20 mb-10 flex justify-between items-center px-10">
             <button onclick="toggleAddEmp()" class="px-3 py-1 rounded-lg text-white bg-green-400 hover:bg-green-500">Add
                 Employee</button>
@@ -29,7 +29,7 @@
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->joined_at }}</td>
                             <td class="flex flex-row gap-3">
-                                <a href="#"
+                                <a href="/employees/{{$user->id}}/edit" onclick="toggleEdit()"
                                     class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg">Edit</a>
                                 <a href="#"
                                     class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</a>
@@ -53,16 +53,19 @@
     <div id="add_emp_modal" class="hidden overflow-y-auto">
         <div
             class="md:ml-36 fixed top-0 left-0 bg-gray-600 bg-opacity-25 h-screen w-screen flex justify-center max-sm:items-start items-center overflow-auto">
-            <div id="modal_content" class="bg-white rounded-xl p-6 overflow-auto mt-20 mb-10">
+            <div id="modal_content" class="bg-white rounded-xl p-6 overflow-auto mt-20 mb-10 relative">
+                <div class="close-modal absolute top-3 right-3 p-1 px-2 border rounded-full hover:bg-red-500 hover:text-white transition-colors duration-300 cursor-pointer">
+                    <i class="fas fa-times"></i>
+                </div>
                 <h1 class="text-center text-2xl my-5">Add Employee!</h1>
                 <form action="/employees" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <x-forms.input type="text" label="ID:" name="id" required="true" />
+                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" />
                         <x-forms.input type="text" label="Name:" name="name" required="true" />
                         <x-forms.input type="text" label="Email:" name="email" required="true" />
                         <x-forms.input type="text" label="Phone:" name="phone" required="true" />
-                        <x-forms.input type="date" label="Joined At:" name="joined" required="true" />
+                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" />
                     </div>
                     <div class="mt-5 w-full flex justify-center items-center">
                         <x-forms.button label="Submit" />
@@ -71,6 +74,33 @@
             </div>
         </div>
     </div>
+    @if(isset($id))
+    <div id="edit_emp_modal" class="{{request()->is('employees/'.$id.'/edit')?'':'hidden'}} overflow-y-auto">
+        <div
+            class="md:ml-36 fixed top-0 left-0 bg-gray-600 bg-opacity-25 h-screen w-screen flex justify-center max-sm:items-start items-center overflow-auto">
+            <div id="modal_content" class="bg-white rounded-xl p-6 overflow-auto mt-20 mb-10 relative">
+                <a href="/employees" class="absolute top-3 right-3 p-1 px-2 border rounded-full hover:bg-red-500 hover:text-white transition-colors duration-300 cursor-pointer">
+                    <i class="fas fa-times"></i>
+                </a>
+                <h1 class="text-center text-2xl my-5">Edit Employee!</h1>
+                <form action="/employees" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" />
+                        <x-forms.input type="text" label="Name:" name="name" required="true" />
+                        <x-forms.input type="text" label="Email:" name="email" required="true" />
+                        <x-forms.input type="text" label="Phone:" name="phone" required="true" />
+                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" />
+                    </div>
+                    <div class="mt-5 w-full flex justify-center items-center">
+                        <x-forms.button label="Submit" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
 </x-layout>
 <script>
     $(document).ready(function() {
@@ -79,8 +109,17 @@
         });
     });
 
+    $('.close-modal').click(()=>{
+        $('#add_emp_modal').hide();
+        $('#edit_emp_modal').hide();
+    })
+
     function toggleAddEmp() {
-        $('#add_emp_modal').toggle();
+        $('#add_emp_modal').show();
+    }
+
+    function toggleEdit(){
+        $('#edit_emp_modal').show();
     }
 
     @if (count($errors) > 0)

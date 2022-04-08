@@ -25,7 +25,7 @@
 </style>
 
 <body>
-    <nav class="fixed top-0 md:left-72 h-12 w-full bg-white shadow-md z-50">
+    <nav class="fixed top-0 md:left-64 h-12 w-full bg-white shadow-md z-50">
         <div class="flex justify-center items-start gap-3 w-full h-full relative">
             <div class="flex h-full justify-center items-center absolute top-0 left-5">
                 @switch($view)
@@ -76,7 +76,7 @@
     </nav>
 
     <nav id="sidebar"
-        class="h-screen w-72 bg-white rounded-br-xl shadow-xl fixed top-0 left-0 max-md:-translate-x-full transition-transform duration-200 z-50">
+        class="h-screen w-64 bg-white rounded-br-xl shadow-xl fixed top-0 left-0 max-md:-translate-x-full transition-transform duration-200 z-50">
         <div class="flex w-full justify-center items-center mt-2">
             <img src="/images/logo1.png" alt="PageupSoft" width="100">
         </div>
@@ -127,6 +127,14 @@
 
 
     {{ $slot }}
+
+    @if(session()->has('success'))
+    <div id="success_toast" class="fixed top-14 right-6">
+        <div class="bg-green-500 rounded-lg animate-pulse px-3 py-2 flex justify-center items-center text-white">
+            <h1>{{session('success')}}</h1>
+        </div>
+    </div>
+    @endif
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -142,6 +150,15 @@
             $('#res-logout').toggleClass('hidden');
         }
     }
+
+    @if(session()->has('success'))
+        $('#success_toast').click(()=>{
+            $('#success_toast').hide();
+        })
+    setTimeout(() => {
+        $('#success_toast').hide();
+    }, 5000);
+    @endif
 </script>
 
 </html>
