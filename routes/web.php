@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+    return view('dashboard', [
+        'users' => 5
+    ]);
 });
+
+
+Route::get('/employees', [UsersController::class, 'index']);
+Route::post('/employees', [UsersController::class, 'store']);
