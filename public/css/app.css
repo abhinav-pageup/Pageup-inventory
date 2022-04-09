@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+! tailwindcss v3.0.18 | MIT License | https://tailwindcss.com
 *//*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
@@ -477,35 +477,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .-right-\[1\.69rem\] {
   right: -1.69rem;
 }
-.top-5 {
-  top: 1.25rem;
-}
-.left-1\/2 {
-  left: 50%;
-}
-.right-0 {
-  right: 0px;
-}
-.top-20 {
-  top: 5rem;
-}
 .top-14 {
   top: 3.5rem;
-}
-.right-1\/2 {
-  right: 50%;
-}
-.left-2\/3 {
-  left: 66.666667%;
-}
-.left-\[60\%\] {
-  left: 60%;
-}
-.left-\[55\%\] {
-  left: 55%;
-}
-.left-\[54\%\] {
-  left: 54%;
 }
 .right-6 {
   right: 1.5rem;
@@ -623,6 +596,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .items-center {
   align-items: center;
 }
+.justify-start {
+  justify-content: flex-start;
+}
 .justify-center {
   justify-content: center;
 }
@@ -658,9 +634,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .rounded-md {
   border-radius: 0.375rem;
-}
-.rounded-sm {
-  border-radius: 0.125rem;
 }
 .rounded-r-md {
   border-top-right-radius: 0.375rem;
@@ -752,6 +725,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pr-3 {
   padding-right: 0.75rem;
 }
+.pl-6 {
+  padding-left: 1.5rem;
+}
+.pl-8 {
+  padding-left: 2rem;
+}
+.pl-10 {
+  padding-left: 2.5rem;
+}
+.pl-9 {
+  padding-left: 2.25rem;
+}
 .text-center {
   text-align: center;
 }
@@ -805,15 +790,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
 .transition-colors {
   transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -893,28 +878,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 @media (min-width: 768px) {
 
-  .md\:left-72 {
-    left: 18rem;
+  .md\:left-64 {
+    left: 16rem;
   }
 
   .md\:right-\[20rem\] {
     right: 20rem;
   }
 
-  .md\:left-64 {
-    left: 16rem;
-  }
-
-  .md\:ml-72 {
-    margin-left: 18rem;
+  .md\:ml-64 {
+    margin-left: 16rem;
   }
 
   .md\:ml-36 {
     margin-left: 9rem;
-  }
-
-  .md\:ml-64 {
-    margin-left: 16rem;
   }
 
   .md\:hidden {
@@ -934,24 +911,5 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 767px) {
-
-  .max-md\:hidden {
-    display: none;
-  }
-
-  .max-md\:-translate-x-full {
-    --tw-translate-x: -100%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  }
-}
-
-@media (max-width: 639px) {
-
-  .max-sm\:items-start {
-    align-items: flex-start;
   }
 }

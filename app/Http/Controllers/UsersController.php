@@ -38,4 +38,19 @@ class UsersController extends Controller
             'id' => $user->id
         ]);
     }
+
+    public function update()
+    {
+        $attributes = request()->validate([
+            'emp_id' => 'required|min:1|unique:users,emp_id',
+            'name' => 'required|min:2',
+            'email' => 'required|min:3|max:75|email',
+            'phone' => 'required|digits:10|numeric',
+            'joined_at' => 'required'
+        ]);
+
+        User::update($attributes);
+        
+        return back()->with('success', 'Update Successful');
+    }
 }

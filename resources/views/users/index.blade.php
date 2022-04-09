@@ -75,7 +75,7 @@
         </div>
     </div>
     @if(isset($id))
-    <div id="edit_emp_modal" class="{{request()->is('employees/'.$id.'/edit')?'':'hidden'}} overflow-y-auto">
+    <div id="edit_emp_modal" class="overflow-y-auto">
         <div
             class="md:ml-36 fixed top-0 left-0 bg-gray-600 bg-opacity-25 h-screen w-screen flex justify-center max-sm:items-start items-center overflow-auto">
             <div id="modal_content" class="bg-white rounded-xl p-6 overflow-auto mt-20 mb-10 relative">
@@ -87,11 +87,11 @@
                     @csrf
                     @method('PATCH')
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" />
-                        <x-forms.input type="text" label="Name:" name="name" required="true" />
-                        <x-forms.input type="text" label="Email:" name="email" required="true" />
-                        <x-forms.input type="text" label="Phone:" name="phone" required="true" />
-                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" />
+                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" :value="old('emp_id', $user->emp_id)" />
+                        <x-forms.input type="text" label="Name:" name="name" required="true" :value="old('name', $user->name)" />
+                        <x-forms.input type="email" label="Email:" name="email" required="true" :value="old('email', $user->email)" />
+                        <x-forms.input type="text" label="Phone:" name="phone" required="true" :value="old('phone', $user->phone)" />
+                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" :value="old('joined_at', $user->joined_at)" />
                     </div>
                     <div class="mt-5 w-full flex justify-center items-center">
                         <x-forms.button label="Submit" />

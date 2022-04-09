@@ -82,37 +82,37 @@
         </div>
         <div class="flex justify-center items-center flex-col gap-3 mt-12 px-9">
 
-            <a href="/" class="links nav-link {{ $view == '/' ? 'active-link' : 'inactive-link' }}">
+            <a href="/" class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ $view == '/' ? 'active-link' : 'inactive-link' }}">
                 <i class="fa fa-chart-line"></i>
                 <h1>Dashboard</h1>
             </a>
 
             <a href="/employees"
-                class="links nav-link {{ Str::startsWith($view, 'employees') ? 'active-link' : 'inactive-link' }}">
+                class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'employees') ? 'active-link' : 'inactive-link' }}">
                 <i class="fa fa-users"></i>
                 <h1>Employees</h1>
             </a>
 
             <a href="/purchases"
-                class="links nav-link {{ Str::startsWith($view, 'purchases') ? 'active-link' : 'inactive-link' }}">
+                class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'purchases') ? 'active-link' : 'inactive-link' }}">
                 <i class="fas fa-shopping-bag"></i>
                 <h1>Purchases</h1>
             </a>
 
             <a href="/products"
-                class="links nav-link {{ Str::startsWith($view, 'products') ? 'active-link' : 'inactive-link' }}">
+                class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'products') ? 'active-link' : 'inactive-link' }}">
                 <i class="fas fa-database"></i>
                 <h1>Products</h1>
             </a>
 
             <a href="/product_info"
-                class="links nav-link {{ Str::startsWith($view, 'product_info') ? 'active-link' : 'inactive-link' }}">
+                class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'product_info') ? 'active-link' : 'inactive-link' }}">
                 <i class="fas fa-mouse"></i>
                 <h1>Products Info</h1>
             </a>
 
             <a href="/allotments"
-                class="links nav-link {{ Str::startsWith($view, 'allotments') ? 'active-link' : 'inactive-link' }}">
+                class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'allotments') ? 'active-link' : 'inactive-link' }}">
                 <i class="fa fa-user"></i>
                 <h1>Allotment</h1>
             </a>
