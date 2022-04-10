@@ -83,15 +83,15 @@
                     <i class="fas fa-times"></i>
                 </a>
                 <h1 class="text-center text-2xl my-5">Edit Employee!</h1>
-                <form action="/employees" method="POST">
+                <form action="/employees/{{$id}}" method="POST">
                     @csrf
                     @method('PATCH')
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" :value="old('emp_id', $user->emp_id)" />
-                        <x-forms.input type="text" label="Name:" name="name" required="true" :value="old('name', $user->name)" />
-                        <x-forms.input type="email" label="Email:" name="email" required="true" :value="old('email', $user->email)" />
-                        <x-forms.input type="text" label="Phone:" name="phone" required="true" :value="old('phone', $user->phone)" />
-                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" :value="old('joined_at', $user->joined_at)" />
+                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" :value="old('emp_id', $editUser->emp_id)" />
+                        <x-forms.input type="text" label="Name:" name="name" required="true" :value="old('name', $editUser->name)" />
+                        <x-forms.input type="email" label="Email:" name="email" required="true" :value="old('email', $editUser->email)" />
+                        <x-forms.input type="text" label="Phone:" name="phone" required="true" :value="old('phone', $editUser->phone)" />
+                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" :value="old('joined_at', $editUser->joined_at)" />
                     </div>
                     <div class="mt-5 w-full flex justify-center items-center">
                         <x-forms.button label="Submit" />

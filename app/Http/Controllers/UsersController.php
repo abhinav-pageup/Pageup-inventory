@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as reqFas;
 
@@ -34,12 +35,12 @@ class UsersController extends Controller
     {
         return view('users.index', [
             'users' => User::latest()->get(),
-            'user' => $user,
+            'editUser' => $user,
             'id' => $user->id
         ]);
     }
 
-    public function update()
+    public function update(User $user)
     {
         $attributes = request()->validate([
             'emp_id' => 'required|min:1|unique:users,emp_id',
@@ -49,8 +50,8 @@ class UsersController extends Controller
             'joined_at' => 'required'
         ]);
 
-        User::update($attributes);
+        $user->update($attributes);
         
-        return back()->with('success', 'Update Successful');
+        return redirect(RouteServiceProvider::EMPLOYEES)->with('success', 'Update Successful');
     }
 }

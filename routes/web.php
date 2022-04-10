@@ -24,4 +24,4 @@ Route::get('/', function(){
 Route::get('/employees', [UsersController::class, 'index']);
 Route::post('/employees', [UsersController::class, 'store']);
 Route::get('/employees/{user}/edit', [UsersController::class, 'edit']);
-Route::patch('/employees', [UsersController::class, 'update']);
+Route::patch('/employees/{user}', [UsersController::class, 'update']);
