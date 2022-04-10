@@ -28,11 +28,14 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->joined_at }}</td>
-                            <td class="flex flex-row gap-3">
+                            <td class="flex flex-row gap-3 justify-center items-center">
                                 <a href="/employees/{{$user->id}}/edit" onclick="toggleEdit()"
-                                    class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg">Edit</a>
-                                <a href="#"
-                                    class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</a>
+                                    class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Edit</a>
+                                <form method="POST" action="/employees/{{$user->id}}" class="h-full flex justify-center items-center m-auto">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="return confirm('Are you sure to Delete?')" class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -68,7 +71,7 @@
                         <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" />
                     </div>
                     <div class="mt-5 w-full flex justify-center items-center">
-                        <x-forms.button label="Submit" />
+                        <x-forms.button confirm="Are you sure to add user?" label="Submit" />
                     </div>
                 </form>
             </div>
@@ -94,7 +97,7 @@
                         <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" :value="old('joined_at', $editUser->joined_at)" />
                     </div>
                     <div class="mt-5 w-full flex justify-center items-center">
-                        <x-forms.button label="Submit" />
+                        <x-forms.button confirm="Are You sure to update this user?" label="Submit" />
                     </div>
                 </form>
             </div>
