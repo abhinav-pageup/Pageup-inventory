@@ -12,6 +12,7 @@
             <table id="user_table" class="display dt-responsive nowrap w-full" cellspacing="0" width="100%">
                 <thead>
                     <tr>
+                        <th>Sno</th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -23,18 +24,21 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
+                            <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $user->emp_id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->joined_at }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
-                                <a href="/employees/{{$user->id}}/edit" onclick="toggleEdit()"
+                                <a href="/employees/{{ $user->id }}/edit" onclick="toggleEdit()"
                                     class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Edit</a>
-                                <form method="POST" action="/employees/{{$user->id}}" class="h-full flex justify-center items-center m-auto">
+                                <form method="POST" action="/employees/{{ $user->id }}"
+                                    class="h-full flex justify-center items-center m-auto">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Are you sure to Delete?')" class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</button>
+                                    <button onclick="return confirm('Are you sure to Delete?')"
+                                        class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -42,6 +46,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th>Sno</th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -53,56 +58,38 @@
             </table>
         </div>
     </div>
-    <div id="add_emp_modal" class="hidden overflow-y-auto">
-        <div
-            class="md:ml-36 fixed top-0 left-0 bg-gray-600 bg-opacity-25 h-screen w-screen flex justify-center max-sm:items-start items-center overflow-auto">
-            <div id="modal_content" class="bg-white rounded-xl p-6 overflow-auto mt-20 mb-10 relative">
-                <div class="close-modal absolute top-3 right-3 p-1 px-2 border rounded-full hover:bg-red-500 hover:text-white transition-colors duration-300 cursor-pointer">
-                    <i class="fas fa-times"></i>
+    <x-addModal name="add_emp_modal" label="Add Employee!">
+        <form action="/employees" method="POST">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <x-forms.input type="text" label="ID:" name="emp_id" required="true" />
+                <x-forms.input type="text" label="Name:" name="name" required="true" />
+                <x-forms.input type="text" label="Email:" name="email" required="true" />
+                <x-forms.input type="text" label="Phone:" name="phone" required="true" />
+                <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" />
+            </div>
+            <div class="mt-5 w-full flex justify-center items-center">
+                <x-forms.button confirm="Are you sure to add user?" label="Submit" />
+            </div>
+        </form>
+    </x-addModal>
+    @if (isset($editUser))
+        <x-editModal name="edit_emp_modal" label="Edit Employee!" href="/employees">
+            <form action="/employees/{{ $editUser->id }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <x-forms.input type="text" label="ID:" name="emp_id" required="true" :value="old('emp_id', $editUser->emp_id)" />
+                    <x-forms.input type="text" label="Name:" name="name" required="true" :value="old('name', $editUser->name)" />
+                    <x-forms.input type="email" label="Email:" name="email" required="true" :value="old('email', $editUser->email)" />
+                    <x-forms.input type="text" label="Phone:" name="phone" required="true" :value="old('phone', $editUser->phone)" />
+                    <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" :value="old('joined_at', $editUser->joined_at)" />
                 </div>
-                <h1 class="text-center text-2xl my-5">Add Employee!</h1>
-                <form action="/employees" method="POST">
-                    @csrf
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" />
-                        <x-forms.input type="text" label="Name:" name="name" required="true" />
-                        <x-forms.input type="text" label="Email:" name="email" required="true" />
-                        <x-forms.input type="text" label="Phone:" name="phone" required="true" />
-                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" />
-                    </div>
-                    <div class="mt-5 w-full flex justify-center items-center">
-                        <x-forms.button confirm="Are you sure to add user?" label="Submit" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    @if(isset($id))
-    <div id="edit_emp_modal" class="overflow-y-auto">
-        <div
-            class="md:ml-36 fixed top-0 left-0 bg-gray-600 bg-opacity-25 h-screen w-screen flex justify-center max-sm:items-start items-center overflow-auto">
-            <div id="modal_content" class="bg-white rounded-xl p-6 overflow-auto mt-20 mb-10 relative">
-                <a href="/employees" class="absolute top-3 right-3 p-1 px-2 border rounded-full hover:bg-red-500 hover:text-white transition-colors duration-300 cursor-pointer">
-                    <i class="fas fa-times"></i>
-                </a>
-                <h1 class="text-center text-2xl my-5">Edit Employee!</h1>
-                <form action="/employees/{{$id}}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <x-forms.input type="text" label="ID:" name="emp_id" required="true" :value="old('emp_id', $editUser->emp_id)" />
-                        <x-forms.input type="text" label="Name:" name="name" required="true" :value="old('name', $editUser->name)" />
-                        <x-forms.input type="email" label="Email:" name="email" required="true" :value="old('email', $editUser->email)" />
-                        <x-forms.input type="text" label="Phone:" name="phone" required="true" :value="old('phone', $editUser->phone)" />
-                        <x-forms.input type="date" label="Joined At:" name="joined_at" required="true" :value="old('joined_at', $editUser->joined_at)" />
-                    </div>
-                    <div class="mt-5 w-full flex justify-center items-center">
-                        <x-forms.button confirm="Are You sure to update this user?" label="Submit" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                <div class="mt-5 w-full flex justify-center items-center">
+                    <x-forms.button confirm="Are You sure to update this user?" label="Submit" />
+                </div>
+            </form>
+        </x-editModal>
     @endif
 </x-layout>
 <script>
@@ -112,7 +99,7 @@
         });
     });
 
-    $('.close-modal').click(()=>{
+    $('.close-modal').click(() => {
         $('#add_emp_modal').hide();
         $('#edit_emp_modal').hide();
     })
@@ -121,7 +108,7 @@
         $('#add_emp_modal').show();
     }
 
-    function toggleEdit(){
+    function toggleEdit() {
         $('#edit_emp_modal').show();
     }
 

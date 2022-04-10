@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductMasterController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +28,11 @@ Route::post('/employees', [UsersController::class, 'store']);
 Route::get('/employees/{user}/edit', [UsersController::class, 'edit']);
 Route::patch('/employees/{user}', [UsersController::class, 'update']);
 Route::delete('/employees/{user}', [UsersController::class, 'destroy']);
+
+Route::get('/products', [ProductMasterController::class, 'index']);
+Route::post('/products', [ProductMasterController::class, 'store']);
+Route::get('/products/{product}/edit', [ProductMasterController::class, 'edit']);
+Route::patch('/products/{product}', [ProductMasterController::class, 'update']);
+
+Route::get('/purchases', [PurchaseController::class, 'index']);
+Route::get('/purchases/purchase/create', [PurchaseController::class, 'create']);

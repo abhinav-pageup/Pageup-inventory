@@ -12,6 +12,8 @@ class ProductMaster extends Model
 
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function purchases()
     {
         return $this->hasMany(Purchase::class, 'product_master_id');

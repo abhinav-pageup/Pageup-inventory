@@ -66,7 +66,7 @@
                         <button type="submit" class="rounded-xl">Logout</button>
                     </form>
                 </div>
-                <form method="POST" action="/logout" class="flex justify-center items-center flex-row max-md:hidden m-0 p-0 border-none m-auto">
+                <form method="POST" action="/logout" class="flex justify-center items-center flex-row max-md:hidden border-none m-auto">
                     @csrf
                     <button type="submit" class="bg-red-600 text-white rounded-full px-2">Logout</button>
                 </form>
