@@ -58,7 +58,7 @@
                 <div id="profile" onclick="toggleLogout()"
                     class="bg-slate-200 pr-3 rounded-full flex flex-row gap-2 relative cursor-pointer h-min justify-center items-center">
                     <img src="/images/user.png" alt="Admin" width="20" class="rounded-full">
-                    <h5>Hello, Abhinav</h5>
+                    <h5>Hello, {{auth()->user()->name}}</h5>
                     <h1 class="text-md md:hidden"><i class="fa fa-angle-down"></i></h1>
                     <form id="res-logout" action="/logout" method="POST"
                         class="hidden absolute top-8 left-10 bg-slate-100 px-3 py-1 rounded-xl hover:bg-red-600 hover:text-white">
@@ -74,8 +74,7 @@
         </div>
     </nav>
 
-    <nav id="sidebar"
-        class="h-screen w-64 bg-white rounded-br-xl shadow-xl fixed top-0 left-0 max-md:-translate-x-full transition-transform duration-200 z-50">
+    <nav id="sidebar" class="h-screen w-64 bg-white rounded-br-xl shadow-xl fixed top-0 left-0 max-md:-translate-x-full transition-transform duration-200 z-50">
         <div class="flex w-full justify-center items-center mt-2">
             <img src="/images/logo1.png" alt="PageupSoft" width="100">
         </div>
@@ -149,6 +148,15 @@
             $('#res-logout').toggleClass('hidden');
         }
     }
+
+    function preventFutureDate() {
+        const dateVar = $('.date')
+        const date = new Date
+        const today = date.getFullYear() + `-${(date.getMonth()+1)<=9 ? '0': ''}` + (date.getMonth() + 1) + '-' + date.getDate()
+
+        dateVar.attr('max', today.toString());
+    }
+    preventFutureDate();
 
     @if(session()->has('success'))
         $('#success_toast').click(()=>{

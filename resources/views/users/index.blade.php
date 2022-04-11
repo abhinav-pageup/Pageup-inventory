@@ -95,9 +95,21 @@
 <script>
     $(document).ready(function() {
         $('#user_table').DataTable({
-            responsive: true
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function(row) {
+                            var data = row.data();
+                            return 'Details for ' + data[2];
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                }
+            }
         });
     });
+
+    
 
     $('.close-modal').click(() => {
         $('#add_emp_modal').hide();

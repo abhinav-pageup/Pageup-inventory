@@ -60,7 +60,7 @@
                 </x-forms.select>
             </div>
             <div class="mt-5 w-full flex justify-center items-center">
-                <x-forms.button confirm="Are you sure to add user?" label="Submit" />
+                <x-forms.button confirm="Are you sure to add this Product?" label="Submit" />
             </div>
         </form>
     </x-addModal>
@@ -77,7 +77,7 @@
                     </x-forms.select>
                 </div>
                 <div class="mt-5 w-full flex justify-center items-center">
-                    <x-forms.button confirm="Are you sure to add user?" label="Submit" />
+                    <x-forms.button confirm="Are you sure to add this Product?" label="Submit" />
                 </div>
             </form>
         </x-editModal>

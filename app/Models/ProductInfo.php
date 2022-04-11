@@ -13,6 +13,8 @@ class ProductInfo extends Model
 
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function purchase()
     {
         return $this->belongsTo(Purchase::class);

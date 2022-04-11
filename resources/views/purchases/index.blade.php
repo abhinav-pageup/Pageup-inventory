@@ -29,13 +29,20 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $purchase->product->name }}</td>
                             <td>{{ $purchase->bill_no }}</td>
-                            <td>{{ $purchase->company }}</td>
+                            <td>{{ $purchase->company==null?'Not Mentioned':$purchase->company }}</td>
                             <td>{{ $purchase->quantity }}</td>
                             <td>{{ $purchase->date }}</td>
                             <td>{{ $purchase->cost }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
                                 <a href="/purchases/{{ $purchase->id }}/edit"
                                     class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Edit</a>
+                                <form method="POST" action="/purchases/{{ $purchase->id }}"
+                                    class="h-full flex justify-center items-center m-auto">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="return confirm('Are you sure to Delete?')"
+                                        class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

@@ -61,7 +61,8 @@ class DatabaseSeeder extends Seeder
             'company' => 'HP',
             'quantity' => $mouse->stock,
             'cost' => 9000.00,
-            'date' => now()
+            'date' => now(),
+            'created_by' => 1
         ]);
 
         $cpup = Purchase::create([
@@ -70,7 +71,8 @@ class DatabaseSeeder extends Seeder
             'company' => 'Dell',
             'quantity' => $cpu->stock,
             'cost' => 9000.00,
-            'date' => now()
+            'date' => now(),
+            'created_by' => 1
         ]);
 
         $teap = Purchase::create([
@@ -79,7 +81,8 @@ class DatabaseSeeder extends Seeder
             'company' => 'Assam',
             'quantity' => $tea->stock,
             'cost' => 9000.00,
-            'date' => now()
+            'date' => now(),
+            'created_by' => 1
         ]);
 
         ProductInfo::create([

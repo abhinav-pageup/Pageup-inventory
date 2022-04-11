@@ -22,10 +22,11 @@ class UsersController extends Controller
         $attributes = request()->validate([
             'emp_id' => 'required|min:1|unique:users,emp_id',
             'name' => 'required|min:2',
-            'email' => 'required|min:3|max:75|email',
+            'email' => 'required|min:5|max:75|email',
             'phone' => 'required|digits:10|numeric',
             'joined_at' => 'required'
         ]);
+        $attributes['created_by'] = auth()->user()->id;
 
         User::create($attributes);
 
@@ -50,6 +51,7 @@ class UsersController extends Controller
             'phone' => 'required|digits:10|numeric',
             'joined_at' => 'required'
         ]);
+        $attributes['updated_by'] = auth()->user()->id;
 
         $user->update($attributes);
         

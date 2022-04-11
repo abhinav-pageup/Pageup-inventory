@@ -24,6 +24,8 @@ class ProductMasterController extends Controller
             'type' => 'required|in:Household,Electronic'
         ]);
 
+        $attributes['created_by'] = auth()->user()->id;
+
         ProductMaster::create($attributes);
 
         return redirect(RouteServiceProvider::PRODUCTS)->with('success', 'Product Added');
@@ -43,6 +45,8 @@ class ProductMasterController extends Controller
             'name' => 'required|min:2|unique:product_master,name,'.$product->id.'',
             'type' => 'required|in:Household,Electronic'
         ]);
+
+        $attributes['updated_by'] = auth()->user()->id;
         
         $product->update($attributes);
 
