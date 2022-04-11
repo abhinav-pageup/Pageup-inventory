@@ -4,9 +4,9 @@
 <x-layout>
     <div class="md:ml-64 mt-12">
         <div class="mt-20 mb-10 flex justify-between items-center px-10">
-            <button onclick="toggleProductModal()"
+            <a href="/purchases/purchase/create"
                 class="px-3 py-1 rounded-lg text-white bg-green-400 hover:bg-green-500">Add
-                Purchase</button>
+                Purchase</a>
         </div>
         <div class="mx-5 px-10 bg-white py-10 rounded-xl flex-nowrap responsive"
             style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">

@@ -36,3 +36,4 @@ Route::patch('/products/{product}', [ProductMasterController::class, 'update']);
 
 Route::get('/purchases', [PurchaseController::class, 'index']);
 Route::get('/purchases/purchase/create', [PurchaseController::class, 'create']);
+Route::post('/purchases', [PurchaseController::class, 'store']);
