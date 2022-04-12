@@ -86,14 +86,14 @@
                 <h1>Employees</h1>
             </a>
 
-            <a href="/purchases" class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'purchases') ? 'active-link' : 'inactive-link' }}">
-                <i class="fas fa-shopping-bag"></i>
-                <h1>Purchases</h1>
-            </a>
-
             <a href="/products" class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'products') ? 'active-link' : 'inactive-link' }}">
                 <i class="fas fa-database"></i>
                 <h1>Products</h1>
+            </a>
+
+            <a href="/purchases" class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'purchases') ? 'active-link' : 'inactive-link' }}">
+                <i class="fas fa-shopping-bag"></i>
+                <h1>Purchases</h1>
             </a>
 
             <a href="/product_info" class="links flex justify-start items-center w-full pl-9 rounded-xl py-2 flex-row gap-3 {{ Str::startsWith($view, 'product_info') ? 'active-link' : 'inactive-link' }}">

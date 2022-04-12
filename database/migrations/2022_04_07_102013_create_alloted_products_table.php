@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('return_date')->nullable();
             $table->smallInteger('alloted_by', false, true)->nullable();
             $table->smallInteger('returned_to', false, true)->nullable();
+            $table->string('remark', 500)->nullable();
             $table->timestamps();
             
             $table->foreign('product_info_id')->references('id')->on('product_info')->onDelete('cascade');

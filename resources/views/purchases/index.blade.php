@@ -20,6 +20,7 @@
                         <th>Quantity</th>
                         <th>Date of Purchase</th>
                         <th>Cost</th>
+                        <th>Remark</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@
                             <td>{{ $purchase->quantity }}</td>
                             <td>{{ $purchase->date }}</td>
                             <td>{{ $purchase->cost }}</td>
+                            <td>{{ $purchase->remark }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
                                 @if($purchase->items->where('is_alloted', 1)->count() == 0)
                                 <a href="/purchases/{{ $purchase->id }}/edit"
@@ -60,6 +62,7 @@
                         <th>Quantity</th>
                         <th>Date of Purchase</th>
                         <th>Cost</th>
+                        <th>Remark</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -69,7 +72,17 @@
 <script>
     $(document).ready(function() {
         $('#purchase_table').DataTable({
-            responsive: true
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function(row) {
+                            var data = row.data();
+                            return 'Details for ' + data[1];
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                }
+            }
         });
     });
 </script>

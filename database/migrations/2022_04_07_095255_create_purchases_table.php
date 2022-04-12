@@ -25,6 +25,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->smallInteger('created_by', false, true)->nullable();
             $table->smallInteger('updated_by', false, true)->nullable();
+            $table->string('remark', 500)->nullable();
             $table->timestamps();
             
             $table->foreign('product_master_id')->references('id')->on('product_master');

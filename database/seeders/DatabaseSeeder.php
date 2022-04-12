@@ -62,7 +62,8 @@ class DatabaseSeeder extends Seeder
             'quantity' => $mouse->stock,
             'cost' => 9000.00,
             'date' => now(),
-            'created_by' => 1
+            'created_by' => 1,
+            'remark' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique sunt nihil sed quibusdam quam nobis aliquid incidunt soluta optio consectetur culpa corporis, cumque repellat at enim eum temporibus ad sint.'
         ]);
 
         $cpup = Purchase::create([
@@ -72,7 +73,8 @@ class DatabaseSeeder extends Seeder
             'quantity' => $cpu->stock,
             'cost' => 9000.00,
             'date' => now(),
-            'created_by' => 1
+            'created_by' => 1,
+            'remark' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique sunt nihil sed quibusdam quam nobis aliquid incidunt soluta optio consectetur culpa corporis, cumque repellat at enim eum temporibus ad sint.'
         ]);
 
         $teap = Purchase::create([
@@ -82,7 +84,8 @@ class DatabaseSeeder extends Seeder
             'quantity' => $tea->stock,
             'cost' => 9000.00,
             'date' => now(),
-            'created_by' => 1
+            'created_by' => 1,
+            'remark' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique sunt nihil sed quibusdam quam nobis aliquid incidunt soluta optio consectetur culpa corporis, cumque repellat at enim eum temporibus ad sint.'
         ]);
 
         ProductInfo::create([
