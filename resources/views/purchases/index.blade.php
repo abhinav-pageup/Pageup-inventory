@@ -34,6 +34,7 @@
                             <td>{{ $purchase->date }}</td>
                             <td>{{ $purchase->cost }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
+                                @if($purchase->items->where('is_alloted', 1)->count() == 0)
                                 <a href="/purchases/{{ $purchase->id }}/edit"
                                     class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Edit</a>
                                 <form method="POST" action="/purchases/{{ $purchase->id }}"
@@ -43,6 +44,9 @@
                                     <button onclick="return confirm('Are you sure to Delete?')"
                                         class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</button>
                                 </form>
+                                @else
+                                    <button class="text-white bg-red-400 rounded-md px-2 py-1">Alloted to someone</button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

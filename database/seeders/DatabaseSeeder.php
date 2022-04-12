@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'CPU',
             'stock' => 2,
             'type' => 'Electronic',
-            'alloted' => 1,
+            'alloted' => 0,
             'created_by' => 1,
         ]);
 

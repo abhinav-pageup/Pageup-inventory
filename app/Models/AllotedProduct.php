@@ -13,6 +13,8 @@ class AllotedProduct extends Model
 
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function items()
     {
         return $this->belongsTo(ProductInfo::class, 'product_info_id');

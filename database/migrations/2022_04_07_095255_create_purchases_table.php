@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->smallInteger('id', true, true);
             $table->tinyInteger('product_master_id', false, true)->nullable();
-            $table->string('bill_no', 18)->unique()->nullable();
+            $table->string('bill_no', 18)->nullable();
             $table->string('company', 25)->nullable();
             $table->tinyInteger('quantity', false, true)->nullable();
             $table->decimal('cost', 8, 2, true)->nullable();

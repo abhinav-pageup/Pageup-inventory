@@ -20,13 +20,13 @@ return new class extends Migration
             $table->date('alloted_date')->useCurrent();
             $table->date('return_date')->nullable();
             $table->smallInteger('alloted_by', false, true)->nullable();
-            $table->smallInteger('returned_by', false, true)->nullable();
+            $table->smallInteger('returned_to', false, true)->nullable();
             $table->timestamps();
             
             $table->foreign('product_info_id')->references('id')->on('product_info')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('alloted_by')->references('id')->on('users');
-            $table->foreign('returned_by')->references('id')->on('users');
+            $table->foreign('returned_to')->references('id')->on('users');
         });
     }
 

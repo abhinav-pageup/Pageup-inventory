@@ -19,6 +19,6 @@ class Purchase extends Model
 
     public function items()
     {
-        return $this->hasMany(ProductInfo::class, 'product_info_id');
+        return $this->hasMany(ProductInfo::class);
     }
 }

@@ -13,7 +13,8 @@ class PurchaseController extends Controller
     public function index()
     {
         return view('purchases.index', [
-            'purchases' => Purchase::where('is_active', 1)->latest()->get()
+            'purchases' => Purchase::where('is_active', 1)->latest()->get(),
+            'allot' => ProductInfo::where('is_alloted', 1)->get()
         ]);
     }
 
@@ -28,7 +29,7 @@ class PurchaseController extends Controller
     {
         $attributes = request()->validate([
             'product_master_id' => 'required',
-            'bill_no' => 'required|min:5|unique:purchases,bill_no',
+            'bill_no' => 'required|min:5',
             'company' => '',
             'quantity' => 'required',
             'cost' => 'required',

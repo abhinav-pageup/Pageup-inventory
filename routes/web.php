@@ -46,8 +46,9 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/product_info', [ProductInfoController::class, 'index']);
     
     Route::get('/allotments', [AllotmentController::class, 'index']);
+    Route::post('/allotments', [AllotmentController::class, 'store']);
     Route::get('/allotments/{allot}/return', [AllotmentController::class, 'edit']);
-    Route::patch('/allotments/{allot}', [AllotmentController::class, 'store']);
+    Route::patch('/allotments/{allot}', [AllotmentController::class, 'update']);
 });
 
 Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest');

@@ -30,11 +30,13 @@
                             <td>{{ $allotment->user->name }}</td>
                             <td>{{ $allotment->alloted_date }}</td>
                             <td>{{ $allotment->alloted_by }}</td>
-                            <td>{{ $allotment->returned_date==null?'Not Returned Yet':$allotment->returned_date }}</td>
-                            <td>{{ $allotment->returned_by==null?'Not Returned Yet':$allotment->returned_by }}</td>
+                            <td>{{ $allotment->return_date==null?'Not Returned Yet':$allotment->return_date }}</td>
+                            <td>{{ $allotment->returned_to==null?'Not Returned Yet':$allotment->returned_to }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
+                                @if($allotment->return_date == null)
                                 <a href="/allotments/{{ $allotment->id }}/return"
                                     class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Return</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -53,7 +55,7 @@
                 </tfoot>
             </table>
             <x-addModal name="allot_product_modal" label="Add Employee!">
-                <form action="/employees" method="POST">
+                <form action="/allotments" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <x-forms.select label="Product:" name="product_info_id" required="true">
@@ -79,7 +81,7 @@
                     @csrf
                     @method('PATCH')
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <x-forms.input type="date" label="Return Date:" name="returned_at" required="true" :value="old('returned_at')" />
+                        <x-forms.input type="date" label="Return Date:" name="return_date" required="true" :value="old('returned_at')" />
                         <x-forms.select label="Is Damage:" name="is_damage">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
