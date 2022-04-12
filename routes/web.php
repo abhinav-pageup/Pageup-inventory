@@ -6,6 +6,9 @@ use App\Http\Controllers\ProductMasterController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UsersController;
+use App\Models\ProductInfo;
+use App\Models\ProductMaster;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +26,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth', 'admin')->group(function(){
     Route::get('/', function(){
         return view('dashboard', [
-            'users' => 5
+            'employees' => User::count(),
+            'products' => ProductMaster::count(),
+            'items' => ProductInfo::count()
         ]);
     });
     
@@ -42,6 +47,8 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/purchases/purchase/create', [PurchaseController::class, 'create']);
     Route::post('/purchases', [PurchaseController::class, 'store']);
     Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy']);
+    Route::get('/purchases/{purchase}/edit', [PurchaseController::class, 'edit']);
+    Route::patch('/purchases/{purchase}', [PurchaseController::class, 'update']);
     
     Route::get('/product_info', [ProductInfoController::class, 'index']);
     
