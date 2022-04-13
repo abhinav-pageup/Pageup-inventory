@@ -86,7 +86,17 @@
 <script>
     $(document).ready(function() {
         $('#product_table').DataTable({
-            responsive: true
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function(row) {
+                            var data = row.data();
+                            return '<h1 class="text-xl text-slate-600 mb-6">Details for '  + data[1] + '</h1>';
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                }
+            }
         });
     });
 

@@ -4,12 +4,10 @@
 <x-layout>
     <div class="md:ml-64 mt-12">
         <div class="mt-20 mb-10 flex justify-between items-center px-10">
-            <button onclick="toggleProductModal()"
-                class="px-3 py-1 rounded-lg text-white bg-green-400 hover:bg-green-500">Allot Product
+            <button onclick="toggleProductModal()" class="px-3 py-1 rounded-lg text-white bg-green-400 hover:bg-green-500">Allot Product
         </div>
-        <div class="mx-5 px-10 bg-white py-10 rounded-xl flex-nowrap responsive"
-            style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
-            <table id="allotment_table" class="display dt-responsive nowrap w-full" cellspacing="0" width="100%">
+        <div class="mx-5 px-10 bg-white py-10 rounded-xl flex-nowrap responsive" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+            <table id="allotment_table" class="celled table nowrap" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Sno</th>
@@ -19,26 +17,27 @@
                         <th>Alloted By</th>
                         <th>Return Date</th>
                         <th>Return By</th>
+                        <th>Remark</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($allotments as $allotment)
-                        <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $allotment->items->purchase->product->name }}</td>
-                            <td>{{ $allotment->user->name }}</td>
-                            <td>{{ $allotment->alloted_date }}</td>
-                            <td>{{ $allotment->alloted_by }}</td>
-                            <td>{{ $allotment->return_date==null?'Not Returned Yet':$allotment->return_date }}</td>
-                            <td>{{ $allotment->returned_to==null?'Not Returned Yet':$allotment->returned_to }}</td>
-                            <td class="flex flex-row gap-3 justify-center items-center">
-                                @if($allotment->return_date == null)
-                                <a href="/allotments/{{ $allotment->id }}/return"
-                                    class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Return</a>
-                                @endif
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $allotment->items->purchase->product->name }}</td>
+                        <td>{{ $allotment->user->name }}</td>
+                        <td>{{ $allotment->alloted_date }}</td>
+                        <td>{{ $allotment->alloted_by }}</td>
+                        <td>{{ $allotment->return_date==null?'Not Returned Yet':$allotment->return_date }}</td>
+                        <td>{{ $allotment->returned_to==null?'Not Returned Yet':$allotment->returned_to }}</td>
+                        <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati veritatis, est, accusamus temporibus ab doloribus labore, ducimus ut alias ad fugit magni fuga a. Dolores vitae iure repellat fugit quae.</td>
+                        <td class="flex flex-row gap-3 justify-center items-center">
+                            @if($allotment->return_date == null)
+                            <a href="/allotments/{{ $allotment->id }}/return" class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Return</a>
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
@@ -50,6 +49,7 @@
                         <th>Alloted By</th>
                         <th>Return Date</th>
                         <th>Return By</th>
+                        <th>Remark</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -60,12 +60,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <x-forms.select label="Product:" name="product_info_id" required="true">
                             @foreach ($items as $item)
-                                <option value="{{$item->id}}">{{$item->ref_no}}</option>
+                            <option value="{{$item->id}}">{{$item->ref_no}}</option>
                             @endforeach
                         </x-forms.select>
                         <x-forms.select label="Emp:" name="user_id" required="true">
                             @foreach ($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                            <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
                         </x-forms.select>
                         <x-forms.input type="date" label="Allotment Date:" name="alloted_date" required="true" />
@@ -98,7 +98,17 @@
 <script>
     $(document).ready(function() {
         $('#allotment_table').DataTable({
-            responsive: true
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function(row) {
+                            var data = row.data();
+                            return '<h1 class="text-xl text-slate-600 mb-6">Details for '  + data[1] + ' Allot to ' + data[2] + '</h1>';
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll()
+                }
+            }
         });
     });
 
@@ -106,11 +116,11 @@
         $('#allot_product_modal').show();
     }
 
-    $('.close-modal').click(()=>{
+    $('.close-modal').click(() => {
         $('#allot_product_modal').hide();
     })
 
-    @if (count($errors) > 0)
-        $('#allot_product_modal').show();
+    @if(count($errors) > 0)
+    $('#allot_product_modal').show();
     @endif
 </script>

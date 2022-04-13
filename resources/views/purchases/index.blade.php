@@ -77,7 +77,7 @@
                     display: $.fn.dataTable.Responsive.display.modal({
                         header: function(row) {
                             var data = row.data();
-                            return 'Details for ' + data[1];
+                            return '<h1 class="text-xl text-slate-600 mb-6">Details for '  + data[1] + '</h1>';
                         }
                     }),
                     renderer: $.fn.dataTable.Responsive.renderer.tableAll()
