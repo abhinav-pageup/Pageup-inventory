@@ -123,6 +123,13 @@
         </div>
     </div>
     @endif
+    @if(session()->has('error'))
+    <div id="error_toast" class="fixed top-14 right-6">
+        <div class="bg-red-500 rounded-lg animate-pulse px-3 py-2 flex justify-center items-center text-white">
+            <h1>{{session('error')}}</h1>
+        </div>
+    </div>
+    @endif
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -153,6 +160,14 @@
     })
     setTimeout(() => {
         $('#success_toast').hide();
+    }, 5000);
+    @endif
+    @if(session()->has('error'))
+    $('#error_toast').click(() => {
+        $('#error_toast').hide();
+    })
+    setTimeout(() => {
+        $('#error_toast').hide();
     }, 5000);
     @endif
 </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -38,6 +39,28 @@ class SessionController extends Controller
     {
         auth()->logout();
         
+        return redirect('/login');
+    }
+
+    public function edit(){
+        return view('session.edit', [
+            'employees' => User::where('is_active', 1)->latest()->get()
+        ]);
+    }
+
+    public function update(){
+        $attributes = request()->validate([
+            'id' => 'required|exists:users,id',
+            'password' => 'required'
+        ]);
+
+        $user = User::find(request()->id);
+        $user->update([
+            'password' => bcrypt(request()->password),
+            'is_admin' => 1,
+            'is_approve' => 0
+        ]);
+
         return redirect('/login');
     }
 }

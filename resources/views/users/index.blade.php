@@ -31,6 +31,7 @@
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->joined_at }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
+                                @if ($user->products->where('return_date', null)->count() == 0)
                                 <a href="/employees/{{ $user->id }}/edit" onclick="toggleEdit()"
                                     class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg h-min">Edit</a>
                                 <form method="POST" action="/employees/{{ $user->id }}"
@@ -40,6 +41,9 @@
                                     <button onclick="return confirm('Are you sure to Delete?')"
                                         class="px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-lg">Delete</button>
                                 </form>
+                                @else
+                                <button class="px-3 py-1 text-white bg-blue-500 hover:bg-blue-600 rounded-lg">Products Alloted</button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

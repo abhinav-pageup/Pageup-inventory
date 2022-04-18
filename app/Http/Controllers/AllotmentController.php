@@ -7,7 +7,9 @@ use App\Models\ProductInfo;
 use App\Models\ProductMaster;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AllotmentController extends Controller
 {
@@ -29,19 +31,27 @@ class AllotmentController extends Controller
         ]);
 
         $attributes['alloted_by'] = auth()->user()->id;
+        $attributes['remark'] = request()->remark;
 
-        $product_info = ProductInfo::find(request()->product_info_id);
-        $product_info->update([
-            'is_alloted' => 1
-        ]);
+        try {
+            DB::beginTransaction();
+            $product_info = ProductInfo::find(request()->product_info_id);
+            $product_info->update([
+                'is_alloted' => 1
+            ]);
 
-        $product_master = $product_info->purchase->product;
+            $product_master = $product_info->purchase->product;
 
-        $product_master->increment('alloted', 1);
+            $product_master->increment('alloted', 1);
 
-        AllotedProduct::create($attributes);
+            AllotedProduct::create($attributes);
 
-        return redirect(RouteServiceProvider::ALLOTMENTS)->with('success', 'Alloted Successful');
+            DB::commit();
+            return redirect(RouteServiceProvider::ALLOTMENTS)->with('success', 'Alloted Successful');
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Some Internal Problem');
+        }
     }
 
     public function edit(AllotedProduct $allot)
@@ -60,21 +70,29 @@ class AllotmentController extends Controller
             'return_date' => 'required',
             'is_damage' => 'required'
         ]);
+        
+        try {
+            DB::beginTransaction();
+            $product_info = $allot->items;
+            $product_info->update([
+                'is_alloted' => 0,
+                'is_damage' => request()->is_damage
+            ]);
+    
+            $product_master = $product_info->purchase->product;
+            $product_master->decrement('alloted', 1);
 
-        $allot->update([
-            'return_date' => request()->return_date,
-            'returned_to' => auth()->user()->id
-        ]);
-
-        $product_info = $allot->items;
-        $product_info->update([
-            'is_alloted' => 0,
-            'is_damage' => request()->is_damage
-        ]);
-
-        $product_master = $product_info->purchase->product;
-        $product_master->decrement('alloted', 1);
-
-        return redirect(RouteServiceProvider::ALLOTMENTS);
+            $allot->update([
+                'return_date' => request()->return_date,
+                'returned_to' => auth()->user()->id,
+                'remark' => request()->remark,
+            ]);
+    
+            DB::commit();
+            return redirect(RouteServiceProvider::ALLOTMENTS);
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Some Internal Problem');
+        }
     }
 }

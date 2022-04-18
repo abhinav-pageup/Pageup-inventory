@@ -34,7 +34,7 @@
                             <td>{{ $purchase->quantity }}</td>
                             <td>{{ $purchase->date }}</td>
                             <td>{{ $purchase->cost }}</td>
-                            <td>{{ $purchase->remark }}</td>
+                            <td>{{ $purchase->remark?$purchase->remark:'Not Mentioned' }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
                                 @if($purchase->items->where('is_alloted', 1)->count() == 0)
                                 <a href="/purchases/{{ $purchase->id }}/edit"

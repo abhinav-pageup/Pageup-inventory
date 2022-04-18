@@ -1,5 +1,5 @@
 <head>
-    <title>Dashboard</title>
+    <title>Dashboard | Pageup Inventory</title>
 </head>
 <x-layout>
     <div class="md:ml-64 mt-12 mb-10">

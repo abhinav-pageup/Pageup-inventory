@@ -6,11 +6,14 @@ use App\Models\ProductInfo;
 use App\Models\ProductMaster;
 use App\Models\Purchase;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class PurchaseController extends Controller
 {
+
     public function index()
     {
         return view('purchases.index', [
@@ -28,38 +31,47 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
-        $attributes = request()->validate([
+        request()->validate([
             'product_master_id' => 'required',
             'bill_no' => 'required|min:5',
-            'company' => '',
             'quantity' => 'required',
             'cost' => 'required',
             'date' => 'required',
             'unique.*' => 'required|distinct|min:2|unique:product_info,ref_no'
         ]);
 
-        $purchase = Purchase::create([
-            'product_master_id' => request()->product_master_id,
-            'bill_no' => request()->bill_no,
-            'company' => request()->company,
-            'quantity' => request()->quantity,
-            'cost' => request()->cost,
-            'date' => request()->date,
-            'created_by' => auth()->user()->id
-        ]);
+        try {
+            DB::beginTransaction();
 
-        foreach ($request['unique'] as $product) {
-            ProductInfo::create([
-                'purchase_id' => $purchase->id,
-                'ref_no' => $product
+            $purchase = Purchase::create([
+                'product_master_id' => request()->product_master_id,
+                'bill_no' => request()->bill_no,
+                'company' => request()->company,
+                'quantity' => request()->quantity,
+                'cost' => request()->cost,
+                'date' => request()->date,
+                'remark' => request()->remark,
+                'created_by' => auth()->user()->id
             ]);
-        };
+    
+            foreach ($request['unique'] as $product) {
+                ProductInfo::create([
+                    'purchase_id' => $purchase->id,
+                    'ref_no' => $product
+                ]);
+            };
+    
+            $product_master = ProductMaster::find(request()->product_master_id);
+            $product_master->increment('stock', request()->quantity);
+            $product_master->save();
 
-        $product_master = ProductMaster::find(request()->product_master_id);
-        $product_master->increment('stock', request()->quantity);
-        $product_master->save();
-
-        return redirect(RouteServiceProvider::PURCHASES)->with('success', 'Added Purchase Successful');
+            DB::commit();
+    
+            return redirect(RouteServiceProvider::PURCHASES)->with('success', 'Added Purchase Successful');
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Some Internal Problem');
+        }
     }
 
     public function destroy(Purchase $purchase)
@@ -84,7 +96,7 @@ class PurchaseController extends Controller
 
     public function update(Purchase $purchase, Request $request)
     {
-        $attributes = request()->validate([
+        request()->validate([
             'product_master_id' => 'required',
             'bill_no' => 'required|min:5',
             'company' => '',
@@ -94,39 +106,48 @@ class PurchaseController extends Controller
             'unique.*' => ['required', 'distinct', 'min:2', Rule::unique('product_info', 'ref_no')->ignore($purchase->items->first()->purchase_id, 'purchase_id')]
         ]);
 
-        ProductInfo::where('purchase_id', $purchase->id)->delete();
+        try {
+            DB::beginTransaction();
 
-        $index = 0;
-        foreach ($request['unique'] as $unique) {
-            if(isset($request['damage']['unique'.$index])){
-                ProductInfo::create([
-                    'purchase_id' => $purchase->id,
-                    'ref_no' => $unique,
-                    'is_damage' => 1
-                ]);
-            } else{
-                ProductInfo::create([
-                    'purchase_id' => $purchase->id,
-                    'ref_no' => $unique
-                ]);
+            ProductInfo::where('purchase_id', $purchase->id)->delete();
+
+            $index = 0;
+            foreach ($request['unique'] as $unique) {
+                if (isset($request['damage']['unique' . $index])) {
+                    ProductInfo::create([
+                        'purchase_id' => $purchase->id,
+                        'ref_no' => $unique,
+                        'is_damage' => 1
+                    ]);
+                } else {
+                    ProductInfo::create([
+                        'purchase_id' => $purchase->id,
+                        'ref_no' => $unique
+                    ]);
+                }
+                $index++;
             }
-            $index++;
+
+            $product_master = $purchase->product;
+            $product_master->decrement('stock', $purchase->quantity);
+            $product_master->increment('stock', request()->quantity);
+
+            $purchase->update([
+                'product_master_id' => request()->product_master_id,
+                'bill_no' => request()->bill_no,
+                'company' => request()->company,
+                'quantity' => request()->quantity,
+                'cost' => request()->cost,
+                'date' => request()->date,
+                'remark' => request()->remark,
+                'updated_by' => auth()->user()->id
+            ]);
+            DB::commit();
+
+            return redirect(RouteServiceProvider::PURCHASES)->with('success', "Update Successful");
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Some Internal Problem');
         }
-
-        $product_master = $purchase->product;
-        $product_master->decrement('stock', $purchase->quantity);
-        $product_master->increment('stock', request()->quantity);
-
-        $purchase->update([
-            'product_master_id' => request()->product_master_id,
-            'bill_no' => request()->bill_no,
-            'company' => request()->company,
-            'quantity' => request()->quantity,
-            'cost' => request()->cost,
-            'date' => request()->date,
-            'updated_by' => auth()->user()->id
-        ]);
-
-        return redirect(RouteServiceProvider::PURCHASES)->with('success', "Update Successful");
     }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login | Pageup Inventory</title>
+    <title>Signup | Pageup Inventory</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
@@ -15,17 +15,21 @@
 </head>
 <body>
     <div class="flex justify-center items-center flex-col h-screen w-screen">
-        <form action="/login" method="POST" class="flex justify-center items-center flex-col m-auto p-24 rounded-2xl shadow-xl transition-shadow hover:shadow-2xl duration-300 gap-3">
+        <form action="/signup" method="POST" class="flex justify-center items-center flex-col m-auto p-24 rounded-2xl shadow-xl transition-shadow hover:shadow-2xl duration-300 gap-3">
             @csrf
+            @method('PATCH')
             <div>
                 <img src="/images/logo1.png" alt="PageupSoft" width="130">
             </div>
-            <x-forms.input label="Email:" name="email" type="email" required="true" />
+            <x-forms.select label="Emp:" name="id" required="true">
+                @foreach($employees as $employee)
+                    <option value="{{$employee->id}}">{{$employee->email}}</option>
+                @endforeach
+            </x-forms.select>
             <x-forms.input label="Password:" name="password" type="password" required="true" />
             <div class="mt-5 w-full flex justify-center items-center">
-                <button type="submit" class="px-3 py-1 bg-blue-500 hover:bg-blue-600 rounded-md text-white">Login</button>
+                <button type="submit" class="px-3 py-1 bg-blue-500 hover:bg-blue-600 rounded-md text-white">Signup</button>
             </div>
-            <a href="/signup" class="text-center text-blue-500 hover:text-blue-600 underline">Register Here!</a>
         </form>
     </div>
 </body>

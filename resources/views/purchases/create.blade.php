@@ -17,17 +17,18 @@
                     <x-forms.input label="Company:" name="company" type="text" />
                     <div class="flex flex-col">
                         <label for="quantity" class="mr-auto">Quantity:</label>
-                        <input onkeyup="change()" type="text" id="quantity" name="quantity" class="active:outline-none focus:outline-none border ring-yellow-200 active:ring focus:ring px-2 py-1 rounded-xl transition-all duration-300 outline-none md:w-64" required value="{{old('quantity')}}">
+                        <input onkeyup="change()" onchange="change()" type="number" min="0" id="quantity" name="quantity" class="active:outline-none focus:outline-none border ring-yellow-200 active:ring focus:ring px-2 py-1 rounded-xl transition-all duration-300 outline-none md:w-64" required value="{{old('quantity')}}">
                         @error('quantity')
                         <span class="text-sm text-red-500 mr-auto">{{$message}}</span>
                         @enderror
                     </div>
-                    <x-forms.input label="Total Cost:" name="cost" type="text" required="true" />
+                    <x-forms.input label="Total Cost:" name="cost" type="number" required="true" />
                     <x-forms.input label="Date of Purchase:" name="date" type="date" required="true" />
                 </div>
                 <div id="form-inputs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 @if(old('quantity') !== null)
-                @for ($i = 0; $i < old('quantity'); $i++) <div class="flex flex-col">
+                @for ($i = 0; $i < old('quantity'); $i++)
+                <div class="flex flex-col">
                         <label for="unique[]" class="mr-auto">Unique{{$i+1}}:</label>
                         <input type="text" id="unique[]" name="unique[]" class="active:outline-none border-green-300 focus:outline-none border ring-yellow-200 active:ring focus:ring px-2 py-1 rounded-xl transition-all duration-300 outline-none md:w-64" required value="{{old('unique.'.$i)}}">
                         @error("unique.".$i)
@@ -36,7 +37,8 @@
                 </div>
                 @endfor
                 @endif
-        </div>
+            </div>
+            <x-forms.textarea name="remark" label="Remark" required="true" rows="3" cols="3">{{old('remark')}}</x-forms.textarea>
         <div class="mt-5 w-full flex justify-center items-center">
             <x-forms.button confirm="Are you sure to add Purchase?" label="Submit" />
         </div>

@@ -17,6 +17,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Stock</th>
+                        <th>Weight (For Household)</th>
                         <th>No. of Attoted</th>
                         <th>Actions</th>
                     </tr>
@@ -28,6 +29,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->type }}</td>
                             <td>{{ $product->stock }}</td>
+                            <td>{{ $product->weight?$product->weight:'Null' }}</td>
                             <td>{{ $product->alloted }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
                                 <a href="/products/{{ $product->id }}/edit"
@@ -42,6 +44,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Stock</th>
+                        <th>Weight (For Household)</th>
                         <th>No. of Alloted</th>
                         <th>Actions</th>
                     </tr>

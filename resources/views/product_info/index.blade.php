@@ -10,7 +10,7 @@
                         <th>Sno</th>
                         <th>Product</th>
                         <th>Bill No.</th>
-                        <th>Ref No.</th>
+                        <th>Product ID.</th>
                         <th>Is Alloted</th>
                         <th>Is Damage</th>
                         <th>Company</th>
@@ -34,7 +34,7 @@
                         <th>Sno</th>
                         <th>Product</th>
                         <th>Bill No.</th>
-                        <th>Ref No.</th>
+                        <th>Product ID.</th>
                         <th>Is Alloted</th>
                         <th>Is Damage</th>
                         <th>Company</th>

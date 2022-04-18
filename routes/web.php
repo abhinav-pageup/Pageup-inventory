@@ -61,3 +61,5 @@ Route::middleware('auth', 'admin')->group(function(){
 Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest');
 Route::post('/login', [SessionController::class, 'store'])->middleware('guest');
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
+Route::get('/signup', [SessionController::class, 'edit'])->middleware('guest');
+Route::patch('/signup', [SessionController::class, 'update'])->middleware('guest');

@@ -141,8 +141,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'unique.*' => [
+            'required' => 'This Field is required.',
+            'min' => 'Please Enter at least 2 characters.',
+            'distinct' => 'This field has duplicate value.',
+            'unique' => 'Already Exist.',
         ],
     ],
 

@@ -54,6 +54,7 @@
                 @endforeach
                 @endif
         </div>
+        <x-forms.textarea name="remark" label="Remark" required="true" rows="3" cols="3">{{old('remark', $purchase->remark)}}</x-forms.textarea>
         <div class="mt-5 w-full flex justify-center items-center flex-row gap-3">
             <x-forms.button confirm="Are you sure to Edit this Purchase?" label="Submit" />
             <h1 onclick="uniqueField()" class="text-white bg-green-500 hover:bg-green-600 rounded-md px-2 py-1 cursor-pointer select-none">Add Unique Field</h1>
@@ -83,8 +84,9 @@
     }
 
     function remove(id){
-        console.log(id);
-        $('#'+id).remove();
-        quantity.val(+quantity.val()-1)
+        if(form.children().length > 1){
+            $('#'+id).remove();
+            quantity.val(+quantity.val()-1)
+        }
     }
 </script>
