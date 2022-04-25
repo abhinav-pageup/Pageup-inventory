@@ -24,4 +24,14 @@ class AllotedProduct extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function alloted()
+    {
+        return $this->belongsTo(User::class, 'alloted_by');
+    }
+
+    public function returned()
+    {
+        return $this->belongsTo(User::class, 'returned_to');
+    }
 }

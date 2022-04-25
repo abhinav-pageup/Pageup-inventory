@@ -28,7 +28,9 @@ Route::middleware('auth', 'admin')->group(function(){
         return view('dashboard', [
             'employees' => User::count(),
             'products' => ProductMaster::count(),
-            'items' => ProductInfo::count()
+            'items' => ProductInfo::count(),
+            'admins' => User::where([['is_active', 1], ['is_admin', 1], ['is_approve', 1]])->count(),
+            'requests' => User::where([['is_active', 1], ['is_admin', 1], ['is_approve', 0]])->count()
         ]);
     });
     
@@ -56,6 +58,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::post('/allotments', [AllotmentController::class, 'store']);
     Route::get('/allotments/{allot}/return', [AllotmentController::class, 'edit']);
     Route::patch('/allotments/{allot}', [AllotmentController::class, 'update']);
+    Route::get('/employees_allotments/{user}', [AllotmentController::class, 'show']);
 });
 
 Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest');

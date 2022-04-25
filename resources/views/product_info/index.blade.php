@@ -4,7 +4,7 @@
 <x-layout>
     <div class="md:ml-64 mt-12">
         <div class="mx-5 px-10 bg-white py-10 rounded-xl flex-nowrap responsive" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
-            <table id="product_info_table" class="display dt-responsive nowrap w-full" cellspacing="0" width="100%">
+            <table id="product_info_table" class="display dt-responsive nowrap w-full data_tables" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Sno</th>
@@ -29,34 +29,6 @@
                     </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Sno</th>
-                        <th>Product</th>
-                        <th>Bill No.</th>
-                        <th>Product ID.</th>
-                        <th>Is Alloted</th>
-                        <th>Is Damage</th>
-                        <th>Company</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
 </x-layout>
-<script>
-    $(document).ready(function() {
-        $('#product_info_table').DataTable({
-            responsive: {
-                details: {
-                    display: $.fn.dataTable.Responsive.display.modal({
-                        header: function(row) {
-                            var data = row.data();
-                            return '<h1 class="text-xl text-slate-600 mb-6">Details for '  + data[1] + '</h1>';
-                        }
-                    }),
-                    renderer: $.fn.dataTable.Responsive.renderer.tableAll()
-                }
-            }
-        });
-    });
-</script>

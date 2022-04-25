@@ -23,7 +23,7 @@
                         @enderror
                     </div>
                     <x-forms.input label="Total Cost:" name="cost" type="number" required="true" />
-                    <x-forms.input label="Date of Purchase:" name="date" type="date" required="true" />
+                    <x-forms.date label="Date of Purchase:" name="date" max="{{date('Y-m-d')}}" required="true" />
                 </div>
                 <div id="form-inputs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 @if(old('quantity') !== null)
@@ -38,7 +38,7 @@
                 @endfor
                 @endif
             </div>
-            <x-forms.textarea name="remark" label="Remark" required="true" rows="3" cols="3">{{old('remark')}}</x-forms.textarea>
+            <x-forms.textarea name="remark" label="Remark" required="false" rows="3" cols="3">{{old('remark')}}</x-forms.textarea>
         <div class="mt-5 w-full flex justify-center items-center">
             <x-forms.button confirm="Are you sure to add Purchase?" label="Submit" />
         </div>

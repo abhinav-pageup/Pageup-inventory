@@ -67,7 +67,7 @@ class PurchaseController extends Controller
 
             DB::commit();
     
-            return redirect(RouteServiceProvider::PURCHASES)->with('success', 'Added Purchase Successful');
+            return redirect(RouteServiceProvider::PURCHASES)->with('success', 'Purchase Successful');
         } catch (Exception $ex) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Some Internal Problem');
@@ -144,7 +144,7 @@ class PurchaseController extends Controller
             ]);
             DB::commit();
 
-            return redirect(RouteServiceProvider::PURCHASES)->with('success', "Update Successful");
+            return redirect(RouteServiceProvider::PURCHASES)->with('success', "Purchase Update Successful");
         } catch (Exception $ex) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Some Internal Problem');

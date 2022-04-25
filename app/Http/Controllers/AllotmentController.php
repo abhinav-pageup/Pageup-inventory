@@ -85,7 +85,6 @@ class AllotmentController extends Controller
             $allot->update([
                 'return_date' => request()->return_date,
                 'returned_to' => auth()->user()->id,
-                'remark' => request()->remark,
             ]);
     
             DB::commit();
@@ -94,5 +93,13 @@ class AllotmentController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Some Internal Problem');
         }
+    }
+    
+    public function show($user)
+    {
+        $user_products = AllotedProduct::where(['user_id' => $user, 'return_date' => null])->with('items.purchase.product')->get();
+        return response()->json([
+            'users' => $user_products,
+        ]);
     }
 }

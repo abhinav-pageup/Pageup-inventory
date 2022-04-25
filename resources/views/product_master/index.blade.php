@@ -10,14 +10,14 @@
         </div>
         <div class="mx-5 px-10 bg-white py-10 rounded-xl flex-nowrap responsive"
             style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
-            <table id="product_table" class="display dt-responsive nowrap w-full" cellspacing="0" width="100%">
+            <table id="product_table" class="display dt-responsive nowrap w-full data_tables" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Sno</th>
                         <th>Name</th>
                         <th>Type</th>
                         <th>Stock</th>
-                        <th>Weight (For Household)</th>
+                        {{-- <th>Weight (For Household)</th> --}}
                         <th>No. of Attoted</th>
                         <th>Actions</th>
                     </tr>
@@ -29,7 +29,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->type }}</td>
                             <td>{{ $product->stock }}</td>
-                            <td>{{ $product->weight?$product->weight:'Null' }}</td>
+                            {{-- <td>{{ $product->weight?$product->weight:'Null' }}</td> --}}
                             <td>{{ $product->alloted }}</td>
                             <td class="flex flex-row gap-3 justify-center items-center">
                                 <a href="/products/{{ $product->id }}/edit"
@@ -37,18 +37,7 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Sno</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Stock</th>
-                        <th>Weight (For Household)</th>
-                        <th>No. of Alloted</th>
-                        <th>Actions</th>
-                    </tr>
-                </tfoot>
+                </tbody>    
             </table>
         </div>
     </div>
@@ -87,22 +76,6 @@
     @endif
 </x-layout>
 <script>
-    $(document).ready(function() {
-        $('#product_table').DataTable({
-            responsive: {
-                details: {
-                    display: $.fn.dataTable.Responsive.display.modal({
-                        header: function(row) {
-                            var data = row.data();
-                            return '<h1 class="text-xl text-slate-600 mb-6">Details for '  + data[1] + '</h1>';
-                        }
-                    }),
-                    renderer: $.fn.dataTable.Responsive.renderer.tableAll()
-                }
-            }
-        });
-    });
-
     function toggleProductModal() {
         $('#add_product_modal').show();
     }

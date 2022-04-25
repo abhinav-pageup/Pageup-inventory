@@ -18,7 +18,7 @@
                     <x-forms.input label="Company:" name="company" type="text" :value="old('company', $purchase->company)" />
                     <input type="hidden" id="quantity" name="quantity" value="{{old('quantity', $purchase->quantity)}}">
                     <x-forms.input label="Total Cost:" name="cost" type="text" required="true" :value="old('cost', $purchase->cost)" />
-                    <x-forms.input label="Date of Purchase:" name="date" type="date" :value="old('date', $purchase->date)" required="true" />
+                    <x-forms.date label="Date of Purchase:" name="date" max="{{date('Y-m-d')}}" :value="old('date', $purchase->date)" required="true" />
                 </div>
                 <div id="form-inputs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 @if(old('quantity') !== null)
@@ -54,7 +54,7 @@
                 @endforeach
                 @endif
         </div>
-        <x-forms.textarea name="remark" label="Remark" required="true" rows="3" cols="3">{{old('remark', $purchase->remark)}}</x-forms.textarea>
+        <x-forms.textarea name="remark" label="Remark" required="false" rows="3" cols="3">{{old('remark', $purchase->remark)}}</x-forms.textarea>
         <div class="mt-5 w-full flex justify-center items-center flex-row gap-3">
             <x-forms.button confirm="Are you sure to Edit this Purchase?" label="Submit" />
             <h1 onclick="uniqueField()" class="text-white bg-green-500 hover:bg-green-600 rounded-md px-2 py-1 cursor-pointer select-none">Add Unique Field</h1>

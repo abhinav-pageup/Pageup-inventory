@@ -20,6 +20,14 @@
                 <h1 class="text-3xl">Items</h1>
                 <h1 class="text-2xl">{{$items}}</h1>
             </a>
+            <a href="/employees" class="flex justify-center items-center rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border flex-col py-10 gap-7">
+                <h1 class="text-3xl">Admins</h1>
+                <h1 class="text-2xl">{{$admins}}</h1>
+            </a>
+            <a href="/employees" class="flex justify-center items-center rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border flex-col py-10 gap-7">
+                <h1 class="text-3xl">Pending Requests</h1>
+                <h1 class="text-2xl">{{$requests}}</h1>
+            </a>
         </div>
     </div>
 </x-layout>
